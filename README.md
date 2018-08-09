@@ -12,7 +12,7 @@ $ npm run build
 
 ### Watching for Changes
 ```bash
-$ npm run watch
+$ npm start
 ```
 
 ## Compile and Minify All Theme Assets
