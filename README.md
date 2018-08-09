@@ -1,4 +1,4 @@
-#foundation-vue-webpack
+# foundation-vue-webpack
 Currently using Foundation 6.4.3 / Vue.js 2.x / Webpack 4.x
 
 ## Getting Started  
