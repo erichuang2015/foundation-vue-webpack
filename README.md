@@ -1,6 +1,9 @@
 # foundation-vue-webpack
 Currently using Foundation 6.4.3 / Vue.js 2.x / Webpack 4.x
 
+## Examples
+Simple search http://ewebtest.pl/vue/
+
 ## Getting Started  
 ```bash
 $ cd my-wordpress-folder/wp-content/themes/
