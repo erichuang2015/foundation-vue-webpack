@@ -1,50 +1,29 @@
 const webpack = require('webpack');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
 
-
 module.exports = {
-    mode: 'production',
+    
     entry: {
         foundation: './assets/src/js/init-foundation.js',
-        main: './assets/src/js/app.js'
+        main: ['babel-polyfill', './assets/src/js/app.js']
     },
     output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, 'assets/dist')
+        path: path.resolve(__dirname, 'assets/dist'),
+        filename: "[name].js"
     },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true
-            }),
-            new OptimizeCSSAssetsPlugin({
-                cssProcessorOptions: {
-                    map: {
-                        inline: false,
-                        annotation: true
-                    }
-                }
-            })
-        ]
-    },
-    devtool: 'source-map',
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.js'
+            vue: 'vue/dist/vue.esm.js'
         }
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -59,19 +38,11 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
+                        loader: MiniCssExtractPlugin.loader,
                     },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }
+                    'css-loader',
+                    'sass-loader'
                 ]
             },
             {
@@ -104,7 +75,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['assets/dist']),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: "[name].css"
         }),
         new VueLoaderPlugin(),
         new webpack.ProvidePlugin({
@@ -115,4 +86,5 @@ module.exports = {
     externals: {
         jquery: 'jQuery'
     }
-};
+
+}
